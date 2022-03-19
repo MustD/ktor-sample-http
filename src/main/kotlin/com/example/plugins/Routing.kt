@@ -106,6 +106,7 @@ fun Application.configureRouting() {
 
         post("/address") {
             data class Address(val location: String)
+
             val request = call.receive<Address>()
             call.respond(object {
                 val timestamp = LocalDateTime.now()
@@ -113,27 +114,24 @@ fun Application.configureRouting() {
             })
         }
 
-        get<MyLocation> {
-            call.respondText("Location: name=${it.name}, arg1=${it.arg1}, arg2=${it.arg2}")
+        val states = mapOf(
+            1 to "Samara",
+            2 to "Moskow",
+            3 to "Kalinigrad",
+        )
+        get("/states") {
+            call.respond(states)
         }
-        // Register nested routes
-        get<Type.Edit> {
-            call.respondText("Inside $it")
-        }
-        get<Type.List> {
-            call.respondText("Inside $it")
+
+        val state2cities = mapOf(
+            1 to listOf("Samara", "Togliatty", "Izjevsk"),
+            2 to listOf("Moskow"),
+            3 to listOf("Kalinigrad", "Svetlogorsk"),
+        )
+        get("/cities/{stateId}") {
+            val stateId = call.parameters["stateId"] ?: throw RuntimeException("unable to find")
+            val cities = state2cities[stateId.toInt()] ?: throw RuntimeException("unable to find")
+            call.respond(cities)
         }
     }
-}
-
-@Location("/location/{name}")
-class MyLocation(val name: String, val arg1: Int = 42, val arg2: String = "default")
-
-@Location("/type/{name}")
-data class Type(val name: String) {
-    @Location("/edit")
-    data class Edit(val type: Type)
-
-    @Location("/list/{page}")
-    data class List(val type: Type, val page: Int)
 }

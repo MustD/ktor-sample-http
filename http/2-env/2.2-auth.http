@@ -1,0 +1,4 @@
+GET {{host}}/limit
+Authorization: Basic {{user}} {{pass}}
+
+###

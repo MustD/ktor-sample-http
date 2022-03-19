@@ -1,0 +1,14 @@
+### https://www.jetbrains.com/help/idea/http-response-handling-api-reference.html
+GET http://localhost:8080/states
+Accept: application/json
+
+> {%
+    const samaraId = Object.keys(response.body).find((el) => response.body[el] === "Samara")
+    client.global.set("state", samaraId)
+%}
+
+###
+
+GET http://localhost:8080
+    /cities
+    /{{state}}

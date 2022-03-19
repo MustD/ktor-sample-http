@@ -1,0 +1,10 @@
+POST http://localhost:8080/address
+Content-Type: application/json
+
+{
+  "location": "{{address}} and {{$uuid}}"
+}
+
+###
+# < ./input.json
+# >> myFolder/myFile.json
