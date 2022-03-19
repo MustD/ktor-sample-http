@@ -1,0 +1,11 @@
+GET http://localhost:8080/limit
+Authorization: Basic Rianu Keeves
+
+###
+
+GET http://localhost:8080/limit
+Authorization: Basic Dohnny Jepp
+
+###
+
+

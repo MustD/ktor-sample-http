@@ -1,0 +1,11 @@
+POST http://localhost:8080/sugar/add
+
+###
+
+POST http://localhost:8080/buckwheat/add
+
+###
+
+GET http://localhost:8080/order
+
+###
